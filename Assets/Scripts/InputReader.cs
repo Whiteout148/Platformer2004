@@ -9,6 +9,7 @@ public class InputReader : MonoBehaviour
 
     public event Action<float> PressedMoveKey;
     public event Action StopPressedMoveKey;
+    public event Action ClickedJumpButton;
 
     private void Update()
     {
@@ -19,6 +20,10 @@ public class InputReader : MonoBehaviour
     {
         float step = Input.GetAxis(Horizontal);
 
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            ClickedJumpButton?.Invoke();
+        }
         if (step < 0f || step > 0f)
         {
             PressedMoveKey?.Invoke(step);

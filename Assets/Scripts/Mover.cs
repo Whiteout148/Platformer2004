@@ -7,94 +7,41 @@ using UnityEngine.Rendering;
 
 public class Mover : MonoBehaviour
 {
-    private const float leftScaleX = -1f;
-    private const float rightScaleX = 1f;
+    protected const float LeftScaleX = -1f;
+    protected const float RightScaleX = 1f;
 
-    [SerializeField] private float _step = 1f;
-    [SerializeField] private float _speed = 1f;
-    [SerializeField] private InputReader _reader;
+    [SerializeField] protected float Step = 1f;
+    [SerializeField] protected float Speed = 1f;
+    [SerializeField] protected Jumper Jumper;
 
-    private Vector3 _scaleOnGoRight;
-    private Vector3 _scaleOnGoLeft;
-    private Coroutine _moveCoroutine;
-    private bool _isMove = false;
+    protected bool IsMove = false;
+    protected Coroutine MoveCoroutine;
+    protected Vector3 ScaleOnGoRight;
+    protected Vector3 ScaleOnGoLeft;
 
     public event Action StartMoved;
     public event Action EndMoved;
 
     private void Awake()
     {
-        _scaleOnGoLeft = new Vector3(leftScaleX, transform.localScale.y, transform.localScale.z);
-        _scaleOnGoRight = new Vector3(rightScaleX, transform.localScale.y, transform.localScale.z);
+        ScaleOnGoLeft = new Vector3(LeftScaleX, transform.localScale.y, transform.localScale.z);
+        ScaleOnGoRight = new Vector3(RightScaleX, transform.localScale.y, transform.localScale.z);
     }
 
-    private void OnEnable()
-    {
-        _reader.PressedMoveKey += Move;
-        _reader.StopPressedMoveKey += StopMove;
-    }
-
-    private void OnDisable()
-    {
-        _reader.PressedMoveKey -= Move;
-        _reader.StopPressedMoveKey -= StopMove;
-    }
-
-    public void Move(float step)
+    public virtual void Move(float step)
     {
         StartMoved?.Invoke();
-        _isMove = true;
-
-        if (step < 0)
-        {
-            step -= _step;
-            MoveRight(step);
-        }
-        else if (step > 0)
-        {
-            step += _step;
-            MoveLeft(step);
-        }
+        IsMove = true;
     }
 
-    private void MoveRight(float step)
+    public virtual void StopMove()
     {
-        if (_moveCoroutine == null)
-        {
-            transform.localScale = _scaleOnGoRight;
-            _moveCoroutine = StartCoroutine(DirectionMove(step));
-        }
-    }
-
-    private void MoveLeft(float step)
-    {
-        if (_moveCoroutine == null)
-        {
-            transform.localScale = _scaleOnGoLeft;
-            _moveCoroutine = StartCoroutine(DirectionMove(step));
-        }
-    }
-
-    private void StopMove()
-    {
-        if (_moveCoroutine != null)
-        {
-            StopCoroutine(_moveCoroutine);
-            _moveCoroutine = null;
-        }
-
-        _isMove = false;
-
         EndMoved?.Invoke();
+        IsMove = false;
     }
-    
-    private IEnumerator DirectionMove(float step)
-    {
-        while (_isMove)
-        {
-            transform.position += new Vector3(step, 0f, 0f) * _speed * Time.deltaTime;
 
-            yield return null;
-        }
+    public virtual Vector3 GetScale(float step)
+    {
+        return new Vector3(step, transform.localScale.y, transform.localScale.z);
     }
 }
