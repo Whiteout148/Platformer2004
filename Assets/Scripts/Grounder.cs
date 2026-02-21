@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Raycaster : MonoBehaviour
+public class Grounder : MonoBehaviour
 {
     private const float GroundCheckDistance = 0.1f;
 

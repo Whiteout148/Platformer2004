@@ -7,41 +7,62 @@ using UnityEngine.Rendering;
 
 public class Mover : MonoBehaviour
 {
-    protected const float LeftScaleX = -1f;
-    protected const float RightScaleX = 1f;
+    private const float _rightDirection = -0.001f;
+    private const float _leftDirection = 0.001f;
 
-    [SerializeField] protected float Step = 1f;
-    [SerializeField] protected float Speed = 1f;
-    [SerializeField] protected Jumper Jumper;
+    [SerializeField] private float _step = 1f;
+    [SerializeField] private float _speed = 1f;
+    [SerializeField] private Rigidbody2D _rigidbody;
 
-    protected bool IsMove = false;
-    protected Coroutine MoveCoroutine;
-    protected Vector3 ScaleOnGoRight;
-    protected Vector3 ScaleOnGoLeft;
-
+    private bool _isMove = false;
+    private Coroutine _moveCoroutine;
+   
     public event Action StartMoved;
     public event Action EndMoved;
 
-    private void Awake()
-    {
-        ScaleOnGoLeft = new Vector3(LeftScaleX, transform.localScale.y, transform.localScale.z);
-        ScaleOnGoRight = new Vector3(RightScaleX, transform.localScale.y, transform.localScale.z);
-    }
-
-    public virtual void Move(float step)
+    public void Move(float direction)
     {
         StartMoved?.Invoke();
-        IsMove = true;
+        _isMove = true;
+
+        if (_moveCoroutine == null)
+        {
+            _moveCoroutine = StartCoroutine(DirectionMove(direction));
+        }
     }
 
-    public virtual void StopMove()
+    public void StopMove()
     {
         EndMoved?.Invoke();
-        IsMove = false;
+        _isMove = false;
+
+        _rigidbody.velocity = new Vector2(0f, _rigidbody.velocity.y);
+
+        if (_moveCoroutine != null)
+        {
+            StopCoroutine(_moveCoroutine);
+            _moveCoroutine = null;
+        }
     }
 
-    public virtual Vector3 GetScale(float step)
+    private IEnumerator DirectionMove(float direction)
     {
-        return new Vector3(step, transform.localScale.y, transform.localScale.z);
+        float currentStep;
+
+        if (direction < 0)
+        {
+            currentStep = -_step;
+        }
+        else
+        {
+            currentStep = _step;
+        }
+
+        while (_isMove)
+        {
+            yield return null;
+
+            _rigidbody.velocity = new Vector2(currentStep * _speed, _rigidbody.velocity.y);
+        }
     }
 }

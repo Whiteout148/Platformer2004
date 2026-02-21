@@ -9,7 +9,6 @@ public class EnemyBehaviour : MonoBehaviour
     private const float MaxRandomTime = 10f;
 
     [SerializeField] private List<PointEnemy> _enemyPoints;
-    [SerializeField] private EnemyMover _mover;
     private BehaviourState _state;
 
     private Coroutine _behaviourCoroutine;
@@ -51,11 +50,11 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (_state == BehaviourState.Normal)
             {
-                _mover.StartMoveToTarget(target);
+               
 
                 if (transform.position.x == target.transform.position.x)
                 {
-                    _mover.StopMoveToTarget();
+           
 
                     if (_lookCoroutine == null)
                     {
@@ -79,7 +78,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while (_isLooking)
         {
-            transform.localScale = _mover.GetRandomScale();
 
             yield return new WaitForSeconds(Random.Range(MinRandomTime, MaxRandomTime));
         }

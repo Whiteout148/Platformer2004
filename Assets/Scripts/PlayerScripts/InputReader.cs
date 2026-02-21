@@ -18,15 +18,15 @@ public class InputReader : MonoBehaviour
 
     private void ReadKeys()
     {
-        float step = Input.GetAxis(Horizontal);
+        float direction = Input.GetAxis(Horizontal);
 
         if (Input.GetKeyDown(KeyCode.W))
         {
             ClickedJumpButton?.Invoke();
         }
-        if (step < 0f || step > 0f)
+        if (!Mathf.Approximately(direction, 0))
         {
-            PressedMoveKey?.Invoke(step);
+            PressedMoveKey?.Invoke(direction);
         }
         else
         {

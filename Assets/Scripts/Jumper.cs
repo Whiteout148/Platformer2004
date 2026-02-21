@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Jumper : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpForce = 5f;
+    [SerializeField] private Grounder _grounder;
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private Raycaster _raycaster;
 
     public void Jump()
     {
-        if (_raycaster.IsGround)
+        if (_grounder.IsGround)
         {
-            _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpForce);
         }
     }
 }
