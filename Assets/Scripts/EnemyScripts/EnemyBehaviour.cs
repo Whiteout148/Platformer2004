@@ -5,81 +5,34 @@ using UnityEngine.Rendering;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    private const float MinRandomTime = 3f;
-    private const float MaxRandomTime = 10f;
+    [SerializeField] private Patrol _patrol;
 
-    [SerializeField] private List<PointEnemy> _enemyPoints;
     private BehaviourState _state;
 
-    private Coroutine _behaviourCoroutine;
-    private Coroutine _lookCoroutine;
-
-    private bool _isRunning = true;
-    private bool _isLooking = false;
+    private bool _isPatroling = false;
 
     private void Start()
     {
-        _state = BehaviourState.Normal;
-        StartBehaviouring();
+        _state = BehaviourState.Normal; 
     }
 
     private void OnApplicationQuit()
     {
-        if (_behaviourCoroutine != null)
-        {
-            _isRunning = false;
-            StopCoroutine(_behaviourCoroutine);
-        }
+        _patrol.StopPatroling();
     }
 
-    private void StartBehaviouring()
+    private void Update()
     {
-        if (_behaviourCoroutine == null)
-        {
-            _isRunning = true;
-            _behaviourCoroutine = StartCoroutine(SetBehaviour());
-        }
+        ManageBehaviour();
     }
 
-    private IEnumerator SetBehaviour()
+    private void ManageBehaviour()
     {
-        while (_isRunning)
+        if (_state == BehaviourState.Normal && _isPatroling == false)
         {
-            WaitForSeconds delay = new WaitForSeconds(Random.Range(MinRandomTime, MaxRandomTime));
-            PointEnemy target = _enemyPoints[Random.Range(0, _enemyPoints.Count)];
+            _isPatroling = true;
 
-            if (_state == BehaviourState.Normal)
-            {
-               
-
-                if (transform.position.x == target.transform.position.x)
-                {
-           
-
-                    if (_lookCoroutine == null)
-                    {
-                        _isLooking = true;
-                        _lookCoroutine = StartCoroutine(LookAroundBody());
-
-                        yield return delay;
-
-                        _isLooking = false;
-                        StopCoroutine(_lookCoroutine);
-                        _lookCoroutine = null;
-                    }
-                }
-            }
-
-            yield return null;
-        }
-    }
-
-    private IEnumerator LookAroundBody()
-    {
-        while (_isLooking)
-        {
-
-            yield return new WaitForSeconds(Random.Range(MinRandomTime, MaxRandomTime));
+            _patrol.StartPatroling();
         }
     }
 }

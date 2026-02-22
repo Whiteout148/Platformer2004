@@ -27,4 +27,16 @@ public class Rotater : MonoBehaviour
             transform.eulerAngles = _rotationRight;
         }
     }
+
+    public void Flip()
+    {
+        if (transform.eulerAngles == _rotationLeft)
+        {
+            transform.eulerAngles = _rotationRight;
+        }
+        else
+        {
+            transform.eulerAngles = _rotationLeft;
+        }
+    }
 }

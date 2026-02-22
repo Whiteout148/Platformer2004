@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Priest : MonoBehaviour
+public class Priest : Fighter
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private PriestAnimationShower _animationShower;
+
+    private void OnEnable()
     {
-        
+        CharacterMover.StartMoved += _animationShower.OnStartMove;
+        CharacterMover.EndMoved += _animationShower.OnEndMove;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        CharacterMover.StartMoved += _animationShower.OnStartMove;
+        CharacterMover.EndMoved += _animationShower.OnEndMove;
     }
 }

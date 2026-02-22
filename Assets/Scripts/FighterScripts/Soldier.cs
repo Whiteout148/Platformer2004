@@ -4,5 +4,17 @@ using UnityEngine;
 
 public class Soldier : Fighter
 {
-    
+    [SerializeField] private SoldierAnimationShower _animationShower;
+
+    private void OnEnable()
+    {
+        CharacterMover.StartMoved += _animationShower.OnStartMove;
+        CharacterMover.EndMoved += _animationShower.OnEndMove;
+    }
+
+    private void OnDisable()
+    {
+        CharacterMover.StartMoved += _animationShower.OnStartMove;
+        CharacterMover.EndMoved += _animationShower.OnEndMove;
+    }
 }

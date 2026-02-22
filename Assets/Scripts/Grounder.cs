@@ -11,7 +11,7 @@ public class Grounder : MonoBehaviour
 
     private void Update()
     {
-        IsGround = IsGrounded();
+        IsGround = IsGrounded();   
     }
 
     private bool IsGrounded()
