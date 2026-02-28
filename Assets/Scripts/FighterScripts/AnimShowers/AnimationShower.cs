@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AnimationShower : MonoBehaviour
 {
-    [SerializeField] protected Animator _animator;
+    protected int IsWalking = Animator.StringToHash("IsWalk");
+
+    [SerializeField] protected Animator Animator;
     
-    public void OnStartMove()
+    public void PlayMove()
     {
-        _animator.SetBool("IsWalk", true);
+        Animator.SetBool(IsWalking, true);
     }
 
-    public void OnEndMove()
+    public void StopPlayMove()
     {
-        _animator.SetBool("IsWalk", false);
+        Animator.SetBool(IsWalking, false);
     }
 }

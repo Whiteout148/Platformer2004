@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4d5c17ff7744d48bc7bc637e47ba95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _patrol: {fileID: 2872804421070869843}
+  _patroller: {fileID: 2872804421070869843}
 --- !u!114 &2872804421070869843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904fd2cd2a28ce94aa5efca90edcde58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 4350518565670056540}
+  Animator: {fileID: 4350518565670056540}
 --- !u!114 &3914440724999031691
 MonoBehaviour:
   m_ObjectHideFlags: 0

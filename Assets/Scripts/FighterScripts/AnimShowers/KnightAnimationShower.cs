@@ -4,17 +4,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-public class KnightAnimationShower : MonoBehaviour
+public class KnightAnimationShower : AnimationShower
 {
-    [SerializeField] private Animator _animator;
-
-    public void OnStartMove()
-    {
-        _animator.SetBool("IsWalk", true);
-    }
-
-    public void OnEndMove()
-    {
-        _animator.SetBool("IsWalk", false);
-    }
+    
 }

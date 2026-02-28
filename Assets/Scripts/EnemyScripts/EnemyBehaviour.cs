@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] private Patrol _patrol;
+    [SerializeField] private Patroller _patroller;
 
     private BehaviourState _state;
 
@@ -18,7 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        _patrol.StopPatroling();
+        _patroller.StopPatroling();
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _isPatroling = true;
 
-            _patrol.StartPatroling();
+            _patroller.StartPatroling();
         }
     }
 }

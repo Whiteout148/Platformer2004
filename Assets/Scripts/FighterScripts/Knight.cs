@@ -9,14 +9,14 @@ public class Knight : Fighter
 
     private void OnEnable()
     {
-        CharacterMover.StartMoved += _animationShower.OnStartMove;
-        CharacterMover.EndMoved += _animationShower.OnEndMove;
+        CharacterMover.StartMoved += _animationShower.PlayMove;
+        CharacterMover.EndMoved += _animationShower.StopPlayMove;
     }
 
     private void OnDisable()
     {
-        CharacterMover.StartMoved += _animationShower.OnStartMove;
-        CharacterMover.EndMoved += _animationShower.OnEndMove;
+        CharacterMover.StartMoved += _animationShower.PlayMove;
+        CharacterMover.EndMoved += _animationShower.StopPlayMove;
     }
 
     public override void TakeDamage(float damage)
