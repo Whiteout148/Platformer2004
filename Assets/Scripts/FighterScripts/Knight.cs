@@ -4,28 +4,60 @@ using UnityEngine;
 
 public class Knight : Fighter
 {
-    [SerializeField] private KnightAnimationShower _animationShower;
+    [SerializeField] private float _defendingTime = 2f;
     [SerializeField] private float _armor;
+    [SerializeField] private KnightAnimationShower _shower;
 
-    private void OnEnable()
-    {
-        CharacterMover.StartMoved += _animationShower.PlayMove;
-        CharacterMover.EndMoved += _animationShower.StopPlayMove;
-    }
+    private WaitForSeconds _sleep;
+    private Coroutine _defendingCoroutine;
 
-    private void OnDisable()
+    private bool _isCasting = false;
+
+    private void Awake()
     {
-        CharacterMover.StartMoved += _animationShower.PlayMove;
-        CharacterMover.EndMoved += _animationShower.StopPlayMove;
+        _sleep = new WaitForSeconds(_defendingTime);
     }
 
     public override void TakeDamage(float damage)
     {
-        Health -= damage - _armor;
-
-        if (damage - _armor < 0)
+        if (damage - _armor < 0f || _isCasting)
         {
-            damage = 0;
+            damage = 0f;
         }
+        else
+        {
+            damage -= _armor;
+        }
+
+        base.TakeDamage(damage);
+    }
+
+    public override void ShowAbility()
+    {
+        if (!_isCasting)
+        {
+            _defendingCoroutine = StartCoroutine(Defend());
+        }
+    }
+
+    private IEnumerator Defend()
+    {
+        _isCasting = true;
+        _shower.PlayCasting();
+
+        if (TryGetComponent(out Rigidbody2D rigidbody))
+        {
+            rigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
+        }
+
+        yield return _sleep;
+
+        _shower.StopPlayCasting();
+
+        rigidbody.constraints = RigidbodyConstraints2D.None;
+        rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        _isCasting = false;
+        _defendingCoroutine = null;
     }
 }

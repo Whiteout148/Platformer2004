@@ -6,11 +6,20 @@ using UnityEngine;
 public class InputReader : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
-    private const KeyCode JumpButton = KeyCode.W; 
+    private const int AttackMouseButton = 0; 
+
+    private const KeyCode JumpButton = KeyCode.W;
+    private const KeyCode BlockButton = KeyCode.G;
+    private const KeyCode AbilityButton = KeyCode.E;
 
     public event Action<float> PressedMoveKey;
     public event Action StopPressedMoveKey;
-    public event Action ClickedJumpButton;
+    public event Action PressedJumpButton;
+    public event Action StartPressedBlockButton;
+    public event Action StopPressedBlockButton;
+    public event Action PressedAttackButton;
+    public event Action OnStartShowAbility;
+    public event Action OnEndShowAbility;
 
     private void Update()
     {
@@ -21,10 +30,34 @@ public class InputReader : MonoBehaviour
     {
         float direction = Input.GetAxis(Horizontal);
 
+        if (Input.GetMouseButtonDown(AttackMouseButton))
+        {
+            PressedAttackButton?.Invoke();
+        }
+
+        if (Input.GetKeyDown(AbilityButton))
+        {
+            OnStartShowAbility?.Invoke();
+        }
+        else if (Input.GetKeyUp(AbilityButton))
+        {
+            OnEndShowAbility?.Invoke();
+        }
+
+        if (Input.GetKeyDown(BlockButton))
+        {
+            StartPressedBlockButton?.Invoke();
+        }
+        else
+        {
+            StopPressedBlockButton?.Invoke();
+        }
+
         if (Input.GetKeyDown(JumpButton))
         {
-            ClickedJumpButton?.Invoke();
+            PressedJumpButton?.Invoke();
         }
+
         if (!Mathf.Approximately(direction, 0))
         {
             PressedMoveKey?.Invoke(direction);

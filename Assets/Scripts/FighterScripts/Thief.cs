@@ -4,17 +4,8 @@ using UnityEngine;
 
 public class Thief : Fighter
 {
-    [SerializeField] private ThiefAnimationShower _animationShower;
-
-    private void OnEnable()
+    public override void ShowAbility()
     {
-        CharacterMover.StartMoved += _animationShower.PlayMove;
-        CharacterMover.EndMoved += _animationShower.StopPlayMove;
-    }
-
-    private void OnDisable()
-    {
-        CharacterMover.StartMoved += _animationShower.PlayMove;
-        CharacterMover.EndMoved += _animationShower.StopPlayMove;
+        
     }
 }

@@ -4,17 +4,8 @@ using UnityEngine;
 
 public class Priest : Fighter
 {
-    [SerializeField] private PriestAnimationShower _animationShower;
-
-    private void OnEnable()
+    public override void ShowAbility()
     {
-        CharacterMover.StartMoved += _animationShower.PlayMove;
-        CharacterMover.EndMoved += _animationShower.StopPlayMove;
-    }
 
-    private void OnDisable()
-    {
-        CharacterMover.StartMoved += _animationShower.PlayMove;
-        CharacterMover.EndMoved += _animationShower.StopPlayMove;
     }
 }

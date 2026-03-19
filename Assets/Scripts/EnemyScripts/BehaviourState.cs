@@ -5,4 +5,5 @@ using UnityEngine;
 public enum BehaviourState
 {
     Normal,
+    Persecution
 }

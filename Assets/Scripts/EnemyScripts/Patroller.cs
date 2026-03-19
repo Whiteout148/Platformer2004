@@ -14,13 +14,15 @@ public class Patroller : MonoBehaviour
     [SerializeField] private Mover _mover;
     [SerializeField] private Rotater _rotater;
 
-    private PointEnemy _currentPoint;
+    [SerializeField] private PointEnemy _currentPoint;
     private Coroutine _patrolingCoroutine;
 
     private bool _isRunning = true;
 
     public void StartPatroling()
     {
+        Debug.Log("patrol started");
+
         if (_patrolingCoroutine == null)
         {
             _isRunning = true;
@@ -34,32 +36,14 @@ public class Patroller : MonoBehaviour
         {
             _isRunning = false;
             StopCoroutine(_patrolingCoroutine);
+            _mover.StopMove();
+            _patrolingCoroutine = null;
+            _currentPoint = null;
         }
     }
 
-    private IEnumerator Patroling()
+    public void GoToPoint()
     {
-        while (_isRunning)
-        {
-            GoToRandomPoint();
-
-            yield return new WaitUntil(() => IsOnPoint());
-
-            int behaviourCount = Random.Range(MinBehaviourCount, MaxBehaviourCount);
-
-            for (int i = 0; i < behaviourCount; i++)
-            {
-                _rotater.Flip();
-
-                yield return new WaitForSeconds(Random.Range(MinRandomTime, MaxRandomTime));
-            }
-        }
-    }
-
-    private void GoToRandomPoint()
-    {
-        _currentPoint = GetPoint();
-
         float pointDirection;
 
         if (_currentPoint.transform.position.x < transform.position.x)
@@ -75,7 +59,7 @@ public class Patroller : MonoBehaviour
         _mover.Move(pointDirection);
     }
 
-    private bool IsOnPoint()
+    public bool IsOnPoint()
     {
         if (Mathf.Abs(transform.position.x - _currentPoint.transform.position.x) < 0.1f)
         {
@@ -92,6 +76,29 @@ public class Patroller : MonoBehaviour
         }
 
         return false;
+    }
+
+    private IEnumerator Patroling()
+    {
+        while (_isRunning)
+        {
+            Debug.Log("patroling");
+            _currentPoint = GetPoint();
+            GoToPoint();
+
+            yield return new WaitUntil(() => IsOnPoint());
+
+            int behaviourCount = Random.Range(MinBehaviourCount, MaxBehaviourCount);
+
+            for (int i = 0; i < behaviourCount; i++)
+            {
+                _rotater.Flip();
+
+                yield return new WaitForSeconds(Random.Range(MinRandomTime, MaxRandomTime));
+            }
+        }
+
+
     }
 
     private PointEnemy GetPoint()
