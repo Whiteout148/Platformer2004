@@ -14,6 +14,8 @@ public class Persecutter : MonoBehaviour
     private bool _isRunning = false;
 
     public event Action ReadyToAttack;
+    public event Action StartMoveing;
+    public event Action StopMoveing;
 
     public void StartPersecuting(Player target)
     {
@@ -37,10 +39,10 @@ public class Persecutter : MonoBehaviour
 
     private IEnumerator Chase(Player target)
     {
+        float pointDirection;
+
         while (_isRunning)
         {
-            float pointDirection;
-
             if (target.transform.position.x < transform.position.x)
             {
                 pointDirection = -1f;
@@ -50,16 +52,24 @@ public class Persecutter : MonoBehaviour
                 pointDirection = 1f;
             }
 
-            _rotater.SetDirection(pointDirection);
-            _mover.Move(pointDirection);
-
             if (_checker.IsNear)
             {
                 ReadyToAttack?.Invoke();
                 _mover.StopMove();
+                StopMoveing?.Invoke();
             }
+            else
+            {
+                _mover.StopMove();
+                _mover.Move(pointDirection);
+                StartMoveing?.Invoke();
+            }
+
+            _rotater.SetDirection(pointDirection);
 
             yield return null;
         }
+
+        _mover.StopMove();
     }
 }

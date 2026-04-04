@@ -7,9 +7,6 @@ using UnityEngine.Rendering;
 
 public class Mover : MonoBehaviour
 {
-    private const float _rightDirection = -0.001f;
-    private const float _leftDirection = 0.001f;
-
     [SerializeField] private float _step = 1f;
     [SerializeField] private float _speed = 1f;
     [SerializeField] private Rigidbody2D _rigidbody;
@@ -19,6 +16,8 @@ public class Mover : MonoBehaviour
    
     public event Action StartMoved;
     public event Action EndMoved;
+
+    private float _direction;
 
     public void Move(float direction)
     {
@@ -49,20 +48,20 @@ public class Mover : MonoBehaviour
     {
         float currentStep;
 
-        if (direction < 0)
-        {
-            currentStep = -_step;
-        }
-        else
-        {
-            currentStep = _step;
-        }
-
         while (_isMove)
         {
-            yield return null;
+            if (direction < 0)
+            {
+                currentStep = -_step;
+            }
+            else
+            {
+                currentStep = _step;
+            }
 
             _rigidbody.velocity = new Vector2(currentStep * _speed, _rigidbody.velocity.y);
+
+            yield return null;
         }
     }
 }

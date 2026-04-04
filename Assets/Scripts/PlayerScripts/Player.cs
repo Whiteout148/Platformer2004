@@ -1,32 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Mover _mover;
     [SerializeField] private Jumper _jumper;
-    [SerializeField] private Rotater _rotater;
     [SerializeField] private InputReader _reader;
-    [SerializeField] private Fighter _fighter;
+    [SerializeField] private AnimationShower _shower;
+    [SerializeField] private Health _health;
+    [SerializeField] private ItemCollecter _collecter;
+    [SerializeField] private Defencer _defencer;
+    [SerializeField] private Stunner _stunner;
+
+    private IDirectionSetter _directionSetter;
+
+    private void Awake()
+    {
+        _directionSetter = GetComponent<Rotater>();
+    }
 
     private void OnEnable()
     {
+        _collecter.GettedMedkit += _health.Add;
         _reader.PressedMoveKey += _mover.Move;
-        _reader.PressedMoveKey += _rotater.SetDirection;
+        _reader.PressedMoveKey += _directionSetter.SetDirection;
         _reader.StopPressedMoveKey += _mover.StopMove;
         _reader.PressedJumpButton += _jumper.Jump;
-        _reader.PressedAttackButton += _fighter.Attack;
-        _reader.OnStartShowAbility += _fighter.ShowAbility;
+        _reader.PressedAttackButton += _shower.PlayAttack;
+        _mover.StartMoved += _shower.PlayMove;
+        _mover.EndMoved += _shower.StopPlayMove;
+        _reader.PressedDefenceButton += _defencer.StartDefence;
+        _defencer.StartingDefence += _shower.PlayDefence;
+        _defencer.EndDefence += _shower.StopPlayDefence;
+        _stunner.StartedStunn += _shower.OnStartStunn;
+        _stunner.EndStunn += _shower.OnEndStunn;
+
+        _health.Dead += OnDie;
+        _health.Dead += _shower.PlayDie;
     }
 
     private void OnDisable()
     {
+        _health.Dead -= OnDie;
+        _health.Dead -= _shower.PlayDie;
+    }
+
+    private void OnDie()
+    {
+        _collecter.GettedMedkit -= _health.Add;
         _reader.PressedMoveKey -= _mover.Move;
-        _reader.PressedMoveKey -= _rotater.SetDirection;
+        _reader.PressedMoveKey -= _directionSetter.SetDirection;
         _reader.StopPressedMoveKey -= _mover.StopMove;
         _reader.PressedJumpButton -= _jumper.Jump;
-        _reader.PressedAttackButton -= _fighter.Attack;
-        _reader.OnStartShowAbility -= _fighter.ShowAbility;
+        _reader.PressedAttackButton -= _shower.PlayAttack;
+        _reader.PressedDefenceButton -= _defencer.StartDefence;
+        _defencer.StartingDefence -= _shower.PlayDefence;
+        _defencer.EndDefence -= _shower.StopPlayDefence;
+        _stunner.StartedStunn -= _shower.OnStartStunn;
+        _stunner.EndStunn -= _shower.OnEndStunn;
+
+        _mover.StartMoved -= _shower.PlayMove;
+        _mover.EndMoved -= _shower.StopPlayMove;
     }
 }

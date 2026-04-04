@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,24 @@ public class Patroller : MonoBehaviour
     private const int MaxBehaviourCount = 4;
 
     [SerializeField] private List<PointEnemy> _enemyPoints;
-    [SerializeField] private Mover _mover;
-    [SerializeField] private Rotater _rotater;
+    [SerializeField] private TowardsMover _mover;
 
-    [SerializeField] private PointEnemy _currentPoint;
+    private PointEnemy _currentPoint;
     private Coroutine _patrolingCoroutine;
+    private IFlipper _flipper;
 
     private bool _isRunning = true;
 
+    public event Action StartMoveing;
+    public event Action StopMoveing;
+
+    private void Awake()
+    {
+        _flipper = GetComponent<Rotater>();
+    }
+
     public void StartPatroling()
     {
-        Debug.Log("patrol started");
-
         if (_patrolingCoroutine == null)
         {
             _isRunning = true;
@@ -36,73 +43,36 @@ public class Patroller : MonoBehaviour
         {
             _isRunning = false;
             StopCoroutine(_patrolingCoroutine);
-            _mover.StopMove();
+            _mover.StopMoveToTarget();
             _patrolingCoroutine = null;
             _currentPoint = null;
         }
-    }
-
-    public void GoToPoint()
-    {
-        float pointDirection;
-
-        if (_currentPoint.transform.position.x < transform.position.x)
-        {
-            pointDirection = -1f;
-        }
-        else
-        {
-            pointDirection = 1f;
-        }
-
-        _rotater.SetDirection(pointDirection);
-        _mover.Move(pointDirection);
-    }
-
-    public bool IsOnPoint()
-    {
-        if (Mathf.Abs(transform.position.x - _currentPoint.transform.position.x) < 0.1f)
-        {
-            _mover.StopMove();
-
-            return true;
-        }
-
-        if (Mathf.Approximately(transform.position.x, _currentPoint.transform.position.x))
-        {
-            _mover.StopMove();
-
-            return true;
-        }
-
-        return false;
     }
 
     private IEnumerator Patroling()
     {
         while (_isRunning)
         {
-            Debug.Log("patroling");
             _currentPoint = GetPoint();
-            GoToPoint();
+            _mover.MoveToTarget(_currentPoint.transform);
+            StartMoveing?.Invoke();
 
-            yield return new WaitUntil(() => IsOnPoint());
+            yield return new WaitUntil(() => _mover.IsOnPoint(_currentPoint.transform));
 
-            int behaviourCount = Random.Range(MinBehaviourCount, MaxBehaviourCount);
+            StopMoveing?.Invoke();
+            int flippingCount = UnityEngine.Random.Range(MinBehaviourCount, MaxBehaviourCount);
 
-            for (int i = 0; i < behaviourCount; i++)
+            for (int i = 0; i < flippingCount; i++)
             {
-                _rotater.Flip();
+                _flipper.Flip();
 
-                yield return new WaitForSeconds(Random.Range(MinRandomTime, MaxRandomTime));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(MinRandomTime, MaxRandomTime));
             }
         }
-
-
     }
 
     private PointEnemy GetPoint()
     {
-        return _enemyPoints[Random.Range(0, _enemyPoints.Count)];
+        return _enemyPoints[UnityEngine.Random.Range(0, _enemyPoints.Count)];
     }
 }

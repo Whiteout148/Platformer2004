@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,16 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float _count;
+
+    public event Action Dead;
+
+    private void Update()
+    {
+        if (_count <= 0)
+        {
+            Dead?.Invoke();
+        }
+    }
 
     public void Reduce(float toReduce)
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotater : MonoBehaviour
+public class Rotater : MonoBehaviour, IFlipper, IDirectionSetter
 {
     private const float LeftRotation = 0f;
     private const float RightRotation = 180f;
