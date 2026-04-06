@@ -8,14 +8,19 @@ public class Persecutter : MonoBehaviour
 {
     [SerializeField] private AroundChecker _checker;
     [SerializeField] private Mover _mover;
-    [SerializeField] private Rotater _rotater;
 
+    private IDirectionSetter _directionSetter;
     private Coroutine _persecutionCoroutine;
     private bool _isRunning = false;
 
     public event Action ReadyToAttack;
     public event Action StartMoveing;
     public event Action StopMoveing;
+
+    private void Awake()
+    {
+        _directionSetter = GetComponent<Rotater>();
+    }
 
     public void StartPersecuting(Player target)
     {
@@ -65,7 +70,7 @@ public class Persecutter : MonoBehaviour
                 StartMoveing?.Invoke();
             }
 
-            _rotater.SetDirection(pointDirection);
+            _directionSetter.SetDirection(pointDirection);
 
             yield return null;
         }
