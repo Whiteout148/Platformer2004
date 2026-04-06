@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Health _health;
     [SerializeField] private ItemCollecter _collecter;
     [SerializeField] private Defencer _defencer;
+    [SerializeField] private Attacker _attacker;
     [SerializeField] private Stunner _stunner;
 
     private IDirectionSetter _directionSetter;
@@ -28,14 +29,10 @@ public class Player : MonoBehaviour
         _reader.PressedMoveKey += _directionSetter.SetDirection;
         _reader.StopPressedMoveKey += _mover.StopMove;
         _reader.PressedJumpButton += _jumper.Jump;
-        _reader.PressedAttackButton += _shower.PlayAttack;
+        _reader.PressedAttackButton += _attacker.Attack;
         _mover.StartMoved += _shower.PlayMove;
         _mover.EndMoved += _shower.StopPlayMove;
         _reader.PressedDefenceButton += _defencer.StartDefence;
-        _defencer.StartingDefence += _shower.PlayDefence;
-        _defencer.EndDefence += _shower.StopPlayDefence;
-        _stunner.StartedStunn += _shower.OnStartStunn;
-        _stunner.EndStunn += _shower.OnEndStunn;
 
         _health.Dead += OnDie;
         _health.Dead += _shower.PlayDie;
@@ -56,10 +53,6 @@ public class Player : MonoBehaviour
         _reader.PressedJumpButton -= _jumper.Jump;
         _reader.PressedAttackButton -= _shower.PlayAttack;
         _reader.PressedDefenceButton -= _defencer.StartDefence;
-        _defencer.StartingDefence -= _shower.PlayDefence;
-        _defencer.EndDefence -= _shower.StopPlayDefence;
-        _stunner.StartedStunn -= _shower.OnStartStunn;
-        _stunner.EndStunn -= _shower.OnEndStunn;
 
         _mover.StartMoved -= _shower.PlayMove;
         _mover.EndMoved -= _shower.StopPlayMove;

@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public interface IAttackAnimater
 {
-    public bool IsAnimateAttack();
+    event Action<bool> StartedAttack;
+    bool IsAnimateAttack();
+    void PlayAttack();
 }

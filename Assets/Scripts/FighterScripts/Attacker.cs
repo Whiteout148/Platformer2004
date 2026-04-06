@@ -7,47 +7,58 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] private float _force;
     [SerializeField] private Weapon _weapon;
-    [SerializeField] private AnimationShower _shower;
     [SerializeField] private Stunner _stunner;
 
+    private IDefenceable _defencer;
+    private IAttackAnimater _attackAnimator;
     private bool _isAttack = false;
-    private bool _isStunned = false;
 
     public event Action Attacked;
 
+    private void Awake()
+    {
+        _defencer = GetComponent<Defencer>();
+        _attackAnimator = GetComponent<AnimationShower>();
+    }
+
     private void OnEnable()
     {
-        _shower.StartedAttack += OnAttackStarted;
         _weapon.HittedOther += OnHitOther;
     }
 
     private void OnDisable()
     {
-        _shower.StartedAttack -= OnAttackStarted;
         _weapon.HittedOther -= OnHitOther;
     }
 
-    private void OnAttackStarted(bool isAttack)
+    public void Attack()
     {
-        _isAttack = isAttack;
+        if (!_defencer.IsDefencing)
+        {
+            if (!_stunner.IsStunn)
+            {
+                _attackAnimator.PlayAttack();
+                _isAttack = true;
+            }
+        }
     }
 
-    private void OnHitOther(IDamageable target)
+    private void OnHitOther(IDamageable damageableTarget, IDefenceable defenceableTarget)
     {
-        if (_shower.IsAnimateAttack())
+        if (_attackAnimator.IsAnimateAttack())
         {
             if (_isAttack)
             {
-                if (target.IsDefencing)
+                _isAttack = false;
+
+                if (defenceableTarget.IsDefencing)
                 {
                     _stunner.StartStunn();
-                    _isAttack = false;
                 }
                 else
                 {
-                    target.TakeDamage(_force);
+                    damageableTarget.TakeDamage(_force);
                     Attacked?.Invoke();
-                    _isAttack = false;
                 }
             }
         }

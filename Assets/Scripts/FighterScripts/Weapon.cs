@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public event Action<IDamageable> HittedOther;
+    public event Action<IDamageable, IDefenceable> HittedOther;
 
     [SerializeField] private LayerMask _targetLayer;
 
@@ -16,7 +16,10 @@ public class Weapon : MonoBehaviour
         {
             if (collision.gameObject.TryGetComponent(out IDamageable target))
             {
-                HittedOther?.Invoke(target);
+                if (collision.gameObject.TryGetComponent(out IDefenceable defenceable))
+                {
+                    HittedOther?.Invoke(target, defenceable);
+                }
             }
         }
     }

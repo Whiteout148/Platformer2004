@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stunner : MonoBehaviour
+public class Stunner : MonoBehaviour, IStunneable
 {
     [SerializeField] private float _stunnTime;
 
@@ -12,6 +12,8 @@ public class Stunner : MonoBehaviour
 
     public event Action StartedStunn;
     public event Action EndStunn;
+
+    public bool IsStunn {  get; private set; }
 
     private void Awake()
     {
@@ -30,9 +32,13 @@ public class Stunner : MonoBehaviour
     { 
         StartedStunn?.Invoke();
 
+        IsStunn = true;
+
         yield return _delay;
 
         EndStunn?.Invoke();
+
+        IsStunn = false;
 
         _Coroutine = null;
     }

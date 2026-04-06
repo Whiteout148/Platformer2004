@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IStunneable  
+public interface IDefenceable
 {
-    bool IsStunn {  get; }
+    bool IsDefencing { get; }
 }

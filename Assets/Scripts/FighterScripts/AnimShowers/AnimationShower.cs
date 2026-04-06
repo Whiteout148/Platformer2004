@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class AnimationShower : MonoBehaviour, IAttackAnimater
+public class AnimationShower : MonoBehaviour, IAttackAnimater, IDefenceAnimator
 {
     private const int BaseLayer = 0;
     private const int AttackLayer = 1;
@@ -26,7 +26,6 @@ public class AnimationShower : MonoBehaviour, IAttackAnimater
 
     public event Action<bool> StartedAttack;
 
-    private bool IsStune;
     private bool _isCasting = false;
 
     public bool IsAnimateAttack()
@@ -50,17 +49,8 @@ public class AnimationShower : MonoBehaviour, IAttackAnimater
 
     public void PlayAttack()
     {
-        if (!IsAnimateAttack())
-        {
-            if (!_isCasting)
-            {
-                if (!IsStune)
-                {
-                    _animator.SetTrigger(Attacking);
-                    StartedAttack?.Invoke(true);
-                }
-            }
-        }
+        _animator.SetTrigger(Attacking);
+        StartedAttack?.Invoke(true);
     }
 
     public void PlayMove()
@@ -75,26 +65,13 @@ public class AnimationShower : MonoBehaviour, IAttackAnimater
 
     public void PlayDefence()
     {
-        if (!IsStune)
-        {
-            _animator.SetBool(IsCasting, true);
-            _isCasting = true;
-        }
+        _animator.SetBool(IsCasting, true);
+        _isCasting = true;
     }
 
     public void StopPlayDefence()
     {
         _animator.SetBool(IsCasting, false);
         _isCasting = false;
-    }
-
-    public void OnStartStunn()
-    {
-        IsStune = true;
-    }
-
-    public void OnEndStunn()
-    {
-        IsStune = false;
     }
 }

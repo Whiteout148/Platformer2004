@@ -1400,7 +1400,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 609544110}
-  _defencer: {fileID: 609544141}
 --- !u!114 &609544125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1415,7 +1414,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _force: 5
   _weapon: {fileID: 256586881}
-  _shower: {fileID: 609544123}
   _stunner: {fileID: 609544142}
 --- !u!114 &609544130 stripped
 MonoBehaviour:
@@ -1824,7 +1822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 759796925}
   - component: {fileID: 759796924}
-  - component: {fileID: 759796923}
+  - component: {fileID: 759796926}
   m_Layer: 0
   m_Name: PlaceToDefend
   m_TagString: Untagged
@@ -1832,18 +1830,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &759796923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759796922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1df9ac6712dcb8943bffbfd1a3502d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &759796924
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1904,6 +1890,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &759796926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759796922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df9ac6712dcb8943bffbfd1a3502d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &811922452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,6 +2581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959862662}
+  - component: {fileID: 959862663}
   m_Layer: 0
   m_Name: Warning
   m_TagString: Untagged
@@ -2607,6 +2606,18 @@ Transform:
   - {fileID: 1289799273}
   m_Father: {fileID: 5752461495668335969}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &959862663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959862661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95afc2f301460724cb81f256eb12ce5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &988842840
 GameObject:
   m_ObjectHideFlags: 0
@@ -7110,6 +7121,11 @@ PrefabInstance:
       objectReference: {fileID: 609544142}
     - target: {fileID: 3457730267985671901, guid: f5a5a716314d35a49a99cda6683b69a1,
         type: 3}
+      propertyPath: _attacker
+      value: 
+      objectReference: {fileID: 609544125}
+    - target: {fileID: 3457730267985671901, guid: f5a5a716314d35a49a99cda6683b69a1,
+        type: 3}
       propertyPath: _defencer
       value: 
       objectReference: {fileID: 609544141}
@@ -8843,6 +8859,7 @@ GameObject:
   - component: {fileID: 2272153934449417699}
   - component: {fileID: 6589941127873061290}
   - component: {fileID: 6589941127873061289}
+  - component: {fileID: 6589941127873061292}
   - component: {fileID: 6589941127873061288}
   - component: {fileID: 6589941127873061287}
   - component: {fileID: 6589941127873061286}
@@ -8936,7 +8953,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 6589941127873061283}
-  _defencer: {fileID: 6589941127873061284}
 --- !u!114 &6589941127873061286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8951,7 +8967,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _force: 5
   _weapon: {fileID: 6784799857988438481}
-  _shower: {fileID: 6589941127873061282}
   _stunner: {fileID: 6589941127873061291}
 --- !u!114 &6589941127873061287
 MonoBehaviour:
@@ -9009,17 +9024,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4d5c17ff7744d48bc7bc637e47ba95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDefenceUlt: 5
-  MinDefenceUlt: 2
   _patroller: {fileID: 6589941127873061281}
   _persecutter: {fileID: 6589941127873061289}
-  _detector: {fileID: 759796923}
+  _detector: {fileID: 759796926}
   _shower: {fileID: 6589941127873061282}
   _health: {fileID: 6589941127873061283}
   _defencer: {fileID: 6589941127873061284}
   _attacker: {fileID: 6589941127873061286}
   _stunner: {fileID: 6589941127873061291}
-  _WarningSign: {fileID: 959862661}
+  _ulter: {fileID: 6589941127873061292}
 --- !u!114 &6589941127873061291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9033,6 +9046,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stunnTime: 3
+--- !u!114 &6589941127873061292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589941127873061280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6253d418a698ea439704568ff138a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minUlt: 2
+  _maxUlt: 5
+  _sign: {fileID: 959862663}
 --- !u!212 &6784799857988438480
 SpriteRenderer:
   m_ObjectHideFlags: 0
