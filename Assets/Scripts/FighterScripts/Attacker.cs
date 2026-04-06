@@ -33,14 +33,14 @@ public class Attacker : MonoBehaviour
 
     public void Attack()
     {
-        if (!_defencer.IsDefencing)
-        {
-            if (!_stunner.IsStunn)
-            {
-                _attackAnimator.PlayAttack();
-                _isAttack = true;
-            }
-        }
+        if (_defencer.IsDefencing)
+            return;
+
+        if (_stunner.IsStunn)
+            return;
+
+        _attackAnimator.PlayAttack();
+        _isAttack = true;
     }
 
     private void OnHitOther(IDamageable damageableTarget, IDefenceable defenceableTarget)

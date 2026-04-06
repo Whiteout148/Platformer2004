@@ -7,7 +7,6 @@ public class Ulter : MonoBehaviour
 {
     [SerializeField] private float _minUlt;
     [SerializeField] private float _maxUlt;
-    [SerializeField] private WarningSign _sign;
 
     private float _waitTime = 1f;
     private float _currentUlt;
@@ -47,11 +46,7 @@ public class Ulter : MonoBehaviour
 
     private IEnumerator ShowSign()
     {
-        _sign.gameObject.SetActive(true);
-
         yield return new WaitForSeconds(_waitTime);
-
-        _sign.gameObject.SetActive(false);
 
         _coroutine = null;
     }

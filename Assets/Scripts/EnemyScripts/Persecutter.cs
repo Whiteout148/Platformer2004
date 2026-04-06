@@ -8,6 +8,7 @@ public class Persecutter : MonoBehaviour
 {
     [SerializeField] private AroundChecker _checker;
     [SerializeField] private Mover _mover;
+    [SerializeField] 
 
     private IDirectionSetter _directionSetter;
     private Coroutine _persecutionCoroutine;
