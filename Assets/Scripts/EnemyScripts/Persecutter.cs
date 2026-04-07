@@ -7,21 +7,14 @@ using UnityEngine;
 public class Persecutter : MonoBehaviour
 {
     [SerializeField] private AroundChecker _checker;
-    [SerializeField] private Mover _mover;
-    [SerializeField] 
+    [SerializeField] private TowardsMover _mover;
 
-    private IDirectionSetter _directionSetter;
     private Coroutine _persecutionCoroutine;
     private bool _isRunning = false;
 
     public event Action ReadyToAttack;
     public event Action StartMoveing;
     public event Action StopMoveing;
-
-    private void Awake()
-    {
-        _directionSetter = GetComponent<Rotater>();
-    }
 
     public void StartPersecuting(Player target)
     {
@@ -39,7 +32,7 @@ public class Persecutter : MonoBehaviour
             _isRunning = false;
             StopCoroutine(_persecutionCoroutine);
             _persecutionCoroutine = null;
-            _mover.StopMove();
+            _mover.StopMoveToTarget();
         }
     }
 
@@ -49,33 +42,22 @@ public class Persecutter : MonoBehaviour
 
         while (_isRunning)
         {
-            if (target.transform.position.x < transform.position.x)
-            {
-                pointDirection = -1f;
-            }
-            else
-            {
-                pointDirection = 1f;
-            }
-
             if (_checker.IsNear)
             {
                 ReadyToAttack?.Invoke();
-                _mover.StopMove();
+                _mover.StopMoveToTarget();
                 StopMoveing?.Invoke();
             }
             else
             {
-                _mover.StopMove();
-                _mover.Move(pointDirection);
+                _mover.StopMoveToTarget();
+                _mover.MoveToTarget(target.transform);
                 StartMoveing?.Invoke();
             }
-
-            _directionSetter.SetDirection(pointDirection);
 
             yield return null;
         }
 
-        _mover.StopMove();
+        _mover.StopMoveToTarget();
     }
 }
