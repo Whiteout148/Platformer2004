@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(Rotater))]
 public class Patroller : MonoBehaviour
 {
     private const float MinRandomTime = 1f;

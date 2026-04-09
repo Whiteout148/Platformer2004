@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ItemSpawner : MonoBehaviour
+public class MoneySpawner : MonoBehaviour
 {
-    [SerializeField] private List<ItemPoint> _spawnPoints = new List<ItemPoint>();
+    [SerializeField] private List<MoneyPoint> _spawnPoints = new List<MoneyPoint>();
     [SerializeField] private Item _prefab;
 
     private void Start()

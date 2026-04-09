@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Stunner))]
+[RequireComponent(typeof(AnimationShower))]
 public class Defencer : MonoBehaviour, IDefenceable
 {
     [SerializeField] private float _defencingTime;
@@ -18,6 +20,7 @@ public class Defencer : MonoBehaviour, IDefenceable
     {
         _animator = GetComponent<AnimationShower>();
         _stunneable = GetComponent<Stunner>();
+
         _delay = new WaitForSeconds(_defencingTime);
     }
 

@@ -12,14 +12,6 @@ public class AroundChecker : MonoBehaviour
     private void Update()
     {
         Collider2D player = Physics2D.OverlapCircle(transform.position, _radius, _targetLayer);
-
-        if (player != null)
-        {
-            IsNear = true;
-        }
-        else
-        {
-            IsNear = false;
-        }
+        IsNear = player != null;
     }
 }

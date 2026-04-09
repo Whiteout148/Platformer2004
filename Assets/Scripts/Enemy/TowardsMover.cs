@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rotater))]
 public class TowardsMover : MonoBehaviour
 {
     [SerializeField] private Mover _mover;

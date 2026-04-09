@@ -9,17 +9,14 @@ public class Health : MonoBehaviour
 
     public event Action Dead;
 
-    private void Update()
+    public void Reduce(float toReduce)
     {
+        _count -= toReduce;
+
         if (_count <= 0)
         {
             Dead?.Invoke();
         }
-    }
-
-    public void Reduce(float toReduce)
-    {
-        _count -= toReduce;
     }
 
     public void Add(float toAdd)

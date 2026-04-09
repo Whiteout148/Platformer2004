@@ -7347,7 +7347,7 @@ GameObject:
   - component: {fileID: 1756577503}
   - component: {fileID: 1756577504}
   m_Layer: 0
-  m_Name: ItemSpawner
+  m_Name: MoneySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7391,7 +7391,8 @@ MonoBehaviour:
   - {fileID: 1868402913}
   - {fileID: 568607770}
   - {fileID: 1089741986}
-  _prefab: {fileID: 690679791585181562, guid: a33be8f3de0092c4ba5df9af2485d84c, type: 3}
+  _prefab: {fileID: -5666118376891706539, guid: a33be8f3de0092c4ba5df9af2485d84c,
+    type: 3}
 --- !u!1 &1785042122
 GameObject:
   m_ObjectHideFlags: 0
@@ -7818,6 +7819,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7898964130068886192, guid: d86cbde2ad4565843874199be01fd461,
         type: 3}
+      propertyPath: _mover
+      value: 
+      objectReference: {fileID: 2016215079}
+    - target: {fileID: 7898964130068886192, guid: d86cbde2ad4565843874199be01fd461,
+        type: 3}
       propertyPath: _mmover
       value: 
       objectReference: {fileID: 2016215079}
@@ -8166,6 +8172,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7898964130068886192, guid: d86cbde2ad4565843874199be01fd461,
+        type: 3}
+      propertyPath: _mover
+      value: 
+      objectReference: {fileID: 1551661689}
     - target: {fileID: 7898964130068886192, guid: d86cbde2ad4565843874199be01fd461,
         type: 3}
       propertyPath: _mmover

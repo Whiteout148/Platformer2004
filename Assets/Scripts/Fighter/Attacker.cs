@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Defencer))]
+[RequireComponent(typeof(AnimationShower))]
 public class Attacker : MonoBehaviour
 {
     [SerializeField] private float _force;

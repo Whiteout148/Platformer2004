@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPoint : MonoBehaviour
+public class MoneyPoint : MonoBehaviour
 {
     
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(Rotater))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Mover _mover;
