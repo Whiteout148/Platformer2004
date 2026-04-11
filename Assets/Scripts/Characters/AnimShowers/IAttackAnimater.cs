@@ -5,7 +5,6 @@ using UnityEngine;
 
 public interface IAttackAnimater
 {
-    event Action<bool> StartedAttack;
     bool IsAnimateAttack();
     void PlayAttack();
 }

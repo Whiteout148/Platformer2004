@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Mover : MonoBehaviour
 {
@@ -14,25 +12,25 @@ public class Mover : MonoBehaviour
     private bool _isMove = false;
     private Coroutine _moveCoroutine;
    
-    public event Action StartMoved;
-    public event Action EndMoved;
+    public event Action StartedMove;
+    public event Action EndedMoved;
 
     private float _direction;
 
     public void Move(float direction)
     {
-        StartMoved?.Invoke();
+        StartedMove?.Invoke();
         _isMove = true;
 
         if (_moveCoroutine == null)
         {
-            _moveCoroutine = StartCoroutine(DirectionMove(direction));
+            _moveCoroutine = StartCoroutine(MoveDirection(direction));
         }
     }
 
     public void StopMove()
     {
-        EndMoved?.Invoke();
+        EndedMoved?.Invoke();
         _isMove = false;
 
         _rigidbody.velocity = new Vector2(0f, _rigidbody.velocity.y);
@@ -44,9 +42,11 @@ public class Mover : MonoBehaviour
         }
     }
 
-    private IEnumerator DirectionMove(float direction)
+    private IEnumerator MoveDirection(float direction)
     {
         float currentStep;
+
+        WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
 
         while (_isMove)
         {
@@ -61,7 +61,7 @@ public class Mover : MonoBehaviour
 
             _rigidbody.velocity = new Vector2(currentStep * _speed, _rigidbody.velocity.y);
 
-            yield return null;
+            yield return waitForFixedUpdate;
         }
     }
 }

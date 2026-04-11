@@ -9,7 +9,6 @@ public class InputReader : MonoBehaviour
     private const int AttackMouseButton = 0; 
 
     private const KeyCode JumpButton = KeyCode.W;
-    private const KeyCode BlockButton = KeyCode.G;
     private const KeyCode DefenceButton = KeyCode.E;
 
     public event Action<float> PressedMoveKey;
@@ -37,15 +36,6 @@ public class InputReader : MonoBehaviour
         if (Input.GetKeyDown(DefenceButton))
         {
             PressedDefenceButton?.Invoke();
-        }
-
-        if (Input.GetKeyDown(BlockButton))
-        {
-            StartPressedBlockButton?.Invoke();
-        }
-        else
-        {
-            StopPressedBlockButton?.Invoke();
         }
 
         if (Input.GetKeyDown(JumpButton))

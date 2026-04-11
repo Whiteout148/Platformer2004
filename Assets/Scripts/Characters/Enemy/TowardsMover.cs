@@ -47,13 +47,6 @@ public class TowardsMover : MonoBehaviour
             return true;
         }
 
-        if (Mathf.Approximately(transform.position.x, target.transform.position.x))
-        {
-            _mover.StopMove();
-
-            return true;
-        }
-
         return false;
     }
 }

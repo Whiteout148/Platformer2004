@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rotater))]
@@ -12,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AnimationShower _shower;
     [SerializeField] private Health _health;
     [SerializeField] private ItemCollecter _collecter;
+    [SerializeField] private ItemDistributor _distributor;
     [SerializeField] private Defencer _defencer;
     [SerializeField] private Attacker _attacker;
     [SerializeField] private Stunner _stunner;
@@ -25,15 +25,16 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        _collecter.GettedMedkit += _health.Add;
+        _distributor.GettedMedkit += _health.AddCount;
         _reader.PressedMoveKey += _mover.Move;
         _reader.PressedMoveKey += _directionSetter.SetDirection;
         _reader.StopPressedMoveKey += _mover.StopMove;
         _reader.PressedJumpButton += _jumper.Jump;
         _reader.PressedAttackButton += _attacker.Attack;
-        _mover.StartMoved += _shower.PlayMove;
-        _mover.EndMoved += _shower.StopPlayMove;
+        _mover.StartedMove += _shower.PlayMove;
+        _mover.EndedMoved += _shower.StopPlayMove;
         _reader.PressedDefenceButton += _defencer.StartDefence;
+        _health.Dead += _mover.StopMove;
 
         _health.Dead += OnDie;
         _health.Dead += _shower.PlayDie;
@@ -47,15 +48,16 @@ public class Player : MonoBehaviour
 
     private void OnDie()
     {
-        _collecter.GettedMedkit -= _health.Add;
+        _distributor.GettedMedkit -= _health.AddCount;
         _reader.PressedMoveKey -= _mover.Move;
         _reader.PressedMoveKey -= _directionSetter.SetDirection;
         _reader.StopPressedMoveKey -= _mover.StopMove;
         _reader.PressedJumpButton -= _jumper.Jump;
-        _reader.PressedAttackButton -= _shower.PlayAttack;
+        _reader.PressedAttackButton -= _attacker.Attack;
         _reader.PressedDefenceButton -= _defencer.StartDefence;
+        _health.Dead -= _mover.StopMove;
 
-        _mover.StartMoved -= _shower.PlayMove;
-        _mover.EndMoved -= _shower.StopPlayMove;
+        _mover.StartedMove -= _shower.PlayMove;
+        _mover.EndedMoved -= _shower.StopPlayMove;
     }
 }

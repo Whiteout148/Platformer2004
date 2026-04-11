@@ -697,7 +697,7 @@ GameObject:
   - component: {fileID: 5391319485304271503}
   - component: {fileID: 5216434682317462126}
   - component: {fileID: 7898964130068886192}
-  - component: {fileID: 8159580873125257201}
+  - component: {fileID: 2049209668041271461}
   - component: {fileID: 4118180477797403061}
   - component: {fileID: 4648898521266927396}
   - component: {fileID: 8134798104402422222}
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 5547557160196197743}
   - component: {fileID: 897657388572452904}
   - component: {fileID: 2631344811689286624}
-  - component: {fileID: 750439281387142401}
+  - component: {fileID: 8798095968419708355}
   - component: {fileID: 8018253432673376400}
   - component: {fileID: 8068577879879736414}
   - component: {fileID: 9163683206249824062}
@@ -778,7 +778,7 @@ MonoBehaviour:
   _defencer: {fileID: 2412570985269422184}
   _attacker: {fileID: 8134798104402422222}
   _stunner: {fileID: 5020661965932768243}
-  _ulter: {fileID: 8159580873125257201}
+  _ulter: {fileID: 2049209668041271461}
 --- !u!114 &7898964130068886192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,8 +792,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checker: {fileID: 4118180477797403061}
-  _mover: {fileID: 897657388572452904}
---- !u!114 &8159580873125257201
+  _mover: {fileID: 4648898521266927396}
+--- !u!114 &2049209668041271461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -802,11 +802,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8620493987861332911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6253d418a698ea439704568ff138a4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 00ae6d622640aec4888c41c0aabc4da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minUlt: 2
-  _maxUlt: 5
+  _minUlt: 5
+  _maxUlt: 10
 --- !u!114 &4118180477797403061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f624bafab0ee7d04eb3c2546349eca6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 5
+  _force: -5
   _weapon: {fileID: 4387621347432890127}
   _stunner: {fileID: 5020661965932768243}
 --- !u!114 &5020661965932768243
@@ -902,6 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe9f5fae103f1947be11731a74a50c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
   _count: 50
 --- !u!114 &782160698939495577
 MonoBehaviour:
@@ -961,7 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccba292f2b9e89b43b941ec66bcc4a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &750439281387142401
+--- !u!114 &8798095968419708355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -970,7 +971,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8620493987861332911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd4e9be1e457e594f846b435ba687f82, type: 3}
+  m_Script: {fileID: 11500000, guid: 90739bb3cccd83040838fc5153cfa51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _groundMask:
@@ -989,7 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpForce: 5
-  _grounder: {fileID: 750439281387142401}
+  _grounder: {fileID: 8798095968419708355}
   _rigidbody: {fileID: 225589879446955098}
 --- !u!212 &8068577879879736414
 SpriteRenderer:

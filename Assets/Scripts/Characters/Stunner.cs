@@ -8,7 +8,7 @@ public class Stunner : MonoBehaviour, IStunneable
     [SerializeField] private float _stunnTime;
 
     private WaitForSeconds _delay;
-    private Coroutine _Coroutine;
+    private Coroutine _stunnCoroutine;
 
     public event Action StartedStunn;
     public event Action EndStunn;
@@ -22,9 +22,9 @@ public class Stunner : MonoBehaviour, IStunneable
 
     public void StartStunn()
     {
-        if (_Coroutine == null)
+        if (_stunnCoroutine == null)
         {
-            _Coroutine = StartCoroutine(Stunn());
+            _stunnCoroutine = StartCoroutine(Stunn());
         }
     }
 
@@ -40,6 +40,6 @@ public class Stunner : MonoBehaviour, IStunneable
 
         IsStunn = false;
 
-        _Coroutine = null;
+        _stunnCoroutine = null;
     }
 }

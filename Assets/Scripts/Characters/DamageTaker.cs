@@ -8,6 +8,6 @@ public class DamageTaker : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        _health.Reduce(damage);
+        _health.AddCount(damage);
     }
 }

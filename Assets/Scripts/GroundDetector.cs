@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grounder : MonoBehaviour
+public class GroundDetector : MonoBehaviour
 {
     private const float GroundCheckDistance = 0.1f;
 

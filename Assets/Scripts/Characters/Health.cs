@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _count;
 
     public event Action Dead;
-
-    public void Reduce(float toReduce)
+    
+    public void AddCount(float count)
     {
-        _count -= toReduce;
+        _count += count;
 
         if (_count <= 0)
         {
             Dead?.Invoke();
         }
-    }
-
-    public void Add(float toAdd)
-    {
-        _count += toAdd;
+        else if (_count > _maxHealth)
+        {
+            _count = _maxHealth;
+        }
     }
 }

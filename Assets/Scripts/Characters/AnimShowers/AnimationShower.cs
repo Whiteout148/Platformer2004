@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class AnimationShower : MonoBehaviour, IAttackAnimater, IDefenceAnimator
 {
@@ -23,8 +22,6 @@ public class AnimationShower : MonoBehaviour, IAttackAnimater, IDefenceAnimator
 
     [SerializeField] private Animator _animator;
     [SerializeField] private float MinNormalizedTime = 0.5f;
-
-    public event Action<bool> StartedAttack;
 
     private bool _isCasting = false;
 
@@ -50,7 +47,6 @@ public class AnimationShower : MonoBehaviour, IAttackAnimater, IDefenceAnimator
     public void PlayAttack()
     {
         _animator.SetTrigger(Attacking);
-        StartedAttack?.Invoke(true);
     }
 
     public void PlayMove()

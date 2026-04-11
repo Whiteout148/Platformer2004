@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private Patroller _patroller;
     [SerializeField] private Persecutter _persecutter;
-    [SerializeField] private Detector _detector;
+    [SerializeField] private PlayerDetector _detector;
     [SerializeField] private AnimationShower _shower;
     [SerializeField] private Health _health;
     [SerializeField] private Defencer _defencer;
     [SerializeField] private Attacker _attacker;
     [SerializeField] private Stunner _stunner;
-    [SerializeField] private Ulter _ulter;
+    [SerializeField] private UltDialer _ulter;
 
     private BehaviourState _state;
     private Player _target;

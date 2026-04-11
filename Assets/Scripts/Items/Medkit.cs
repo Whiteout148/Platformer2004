@@ -6,5 +6,5 @@ public class Medkit : Item
 {
     [SerializeField] private float _count;
 
-    public float Count { get { return _count; } }
+    public float Count => _count;
 }

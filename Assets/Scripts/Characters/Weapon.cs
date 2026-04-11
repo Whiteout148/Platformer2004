@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public event Action<IDamageable, IDefenceable> HittedOther;
-
     [SerializeField] private LayerMask _targetLayer;
+
+    public event Action<IDamageable, IDefenceable, bool> HittedOther;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
             {
                 if (collision.gameObject.TryGetComponent(out IDefenceable defenceable))
                 {
-                    HittedOther?.Invoke(target, defenceable);
+                    HittedOther?.Invoke(target, defenceable, false);
                 }
             }
         }

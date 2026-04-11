@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Detector : MonoBehaviour
+public class PlayerDetector : MonoBehaviour
 {
     public event Action<Player> ComeOnPlace;
     public event Action GetOutOnPlace;

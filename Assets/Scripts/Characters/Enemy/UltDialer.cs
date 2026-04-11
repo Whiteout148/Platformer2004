@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ulter : MonoBehaviour
+public class UltDialer : MonoBehaviour
 {
     [SerializeField] private float _minUlt;
     [SerializeField] private float _maxUlt;
