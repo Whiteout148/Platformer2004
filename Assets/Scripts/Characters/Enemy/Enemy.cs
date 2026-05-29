@@ -29,10 +29,6 @@ public class Enemy : MonoBehaviour
         _detector.ComeOnPlace += OnDetectPlayer;
         _detector.GetOutOnPlace += OnPlayerLeave;
         _persecutter.ReadyToAttack += _attacker.Attack;
-        _persecutter.StartMoveing += _shower.PlayMove;
-        _persecutter.StopMoveing += _shower.StopPlayMove;
-        _patroller.StartMoveing += _shower.PlayMove;
-        _patroller.StopMoveing += _shower.StopPlayMove;
         _health.Dead += _patroller.StopPatroling;
         _health.Dead += _persecutter.StopPersecuting;
         _health.Dead += OnDie;
@@ -52,10 +48,6 @@ public class Enemy : MonoBehaviour
         _detector.ComeOnPlace -= OnDetectPlayer;
         _detector.GetOutOnPlace -= OnPlayerLeave;
         _persecutter.ReadyToAttack -= _attacker.Attack;
-        _persecutter.StartMoveing -= _shower.PlayMove;
-        _persecutter.StopMoveing -= _shower.StopPlayMove;
-        _patroller.StartMoveing -= _shower.PlayMove;
-        _patroller.StopMoveing -= _shower.StopPlayMove;
         _health.Dead -= _patroller.StopPatroling;
         _health.Dead -= _persecutter.StopPersecuting;
         _attacker.Attacked -= _ulter.SetUlt;

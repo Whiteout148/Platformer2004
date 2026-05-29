@@ -19,6 +19,7 @@ public class Attacker : MonoBehaviour
 
     private void Awake()
     {
+        _weapon.enabled = false;
         _defencer = GetComponent<Defencer>();
         _attackAnimator = GetComponent<AnimationShower>();
     }
@@ -44,6 +45,7 @@ public class Attacker : MonoBehaviour
         if (_attackAnimator.IsAnimateAttack())
             return;
 
+        _weapon.enabled = true;
         _attackAnimator.PlayAttack();
         _isAttack = true;
     }
@@ -52,6 +54,8 @@ public class Attacker : MonoBehaviour
     {
         if (_attackAnimator.IsAnimateAttack())
         {
+            _weapon.enabled = false;
+
             if (_isAttack)
             {
                 _isAttack = isAttack;

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rotater))]
 public class TowardsMover : MonoBehaviour
 {
     [SerializeField] private Mover _mover;
+    [SerializeField] private Rotater _rotater;
 
     private IDirectionSetter _directionSetter;
     private Coroutine _moveingCoroutine;
@@ -13,7 +13,7 @@ public class TowardsMover : MonoBehaviour
 
     private void Awake()
     {
-        _directionSetter = GetComponent<Rotater>();
+        _directionSetter = _rotater;
     }
 
     public void MoveToTarget(Transform target)

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rotater))]
+[RequireComponent(typeof(AnimationShower))]
 public class Patroller : MonoBehaviour
 {
     private const float MinRandomTime = 1f;
@@ -13,8 +13,9 @@ public class Patroller : MonoBehaviour
 
     [SerializeField] private List<PointEnemy> _enemyPoints;
     [SerializeField] private TowardsMover _mover;
+    [SerializeField] private Rotater _rotater;
+    [SerializeField] private PointEnemy _currentPoint;
 
-    private PointEnemy _currentPoint;
     private Coroutine _patrolingCoroutine;
     private IFlipper _flipper;
 
@@ -25,7 +26,7 @@ public class Patroller : MonoBehaviour
 
     private void Awake()
     {
-        _flipper = GetComponent<Rotater>();
+        _flipper = _rotater;
     }
 
     public void StartPatroling()

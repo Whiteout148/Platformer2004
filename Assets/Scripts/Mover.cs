@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AnimationShower))]
+[RequireComponent (typeof(Stunner))]
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _step = 1f;
@@ -11,16 +13,31 @@ public class Mover : MonoBehaviour
 
     private bool _isMove = false;
     private Coroutine _moveCoroutine;
-   
+    private float _direction;
+    private IMoveAnimater _animater;
+    private IStunneable _stunner;
+
     public event Action StartedMove;
     public event Action EndedMoved;
 
-    private float _direction;
+    private void Awake()
+    {
+        _stunner = GetComponent<Stunner>();
+        _animater = GetComponent<AnimationShower>();
+    }
 
     public void Move(float direction)
     {
+        if (_stunner.IsStunn)
+        {
+            StopMove();
+
+            return;
+        }
+
         StartedMove?.Invoke();
         _isMove = true;
+        _animater.PlayMove();
 
         if (_moveCoroutine == null)
         {
@@ -30,8 +47,12 @@ public class Mover : MonoBehaviour
 
     public void StopMove()
     {
+        if (_stunner.IsStunn)
+            return;
+
         EndedMoved?.Invoke();
         _isMove = false;
+        _animater.StopPlayMove();
 
         _rigidbody.velocity = new Vector2(0f, _rigidbody.velocity.y);
 

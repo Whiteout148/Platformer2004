@@ -20,23 +20,23 @@ public class Rotater : MonoBehaviour, IFlipper, IDirectionSetter
     {
         if (direction < 0)
         {
-            transform.eulerAngles = _rotationLeft;
+            transform.localEulerAngles = _rotationLeft;
         }
         else if (direction > 0)
         {
-            transform.eulerAngles = _rotationRight;
+            transform.localEulerAngles = _rotationRight;
         }
     }
 
     public void Flip()
     {
-        if (transform.eulerAngles == _rotationLeft)
+        if (transform.localEulerAngles == _rotationLeft)
         {
-            transform.eulerAngles = _rotationRight;
+            transform.localEulerAngles = _rotationRight;
         }
         else
         {
-            transform.eulerAngles = _rotationLeft;
+            transform.localEulerAngles = _rotationLeft;
         }
     }
 }

@@ -6,6 +6,7 @@ public class GroundDetector : MonoBehaviour
 {
     private const float GroundCheckDistance = 0.1f;
 
+    [SerializeField] private Transform GroundCheckPosition;
     [SerializeField] private LayerMask _groundMask;
     public bool IsGround { get; private set; }
 
@@ -16,6 +17,6 @@ public class GroundDetector : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.Raycast(transform.position, Vector3.down, GroundCheckDistance, _groundMask);
+        return Physics2D.Raycast(GroundCheckPosition.position, Vector3.down, GroundCheckDistance, _groundMask);
     }
 }

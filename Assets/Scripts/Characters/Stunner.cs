@@ -31,15 +31,13 @@ public class Stunner : MonoBehaviour, IStunneable
     private IEnumerator Stunn()
     { 
         StartedStunn?.Invoke();
-
         IsStunn = true;
 
         yield return _delay;
 
         EndStunn?.Invoke();
-
         IsStunn = false;
-
+  
         _stunnCoroutine = null;
     }
 }

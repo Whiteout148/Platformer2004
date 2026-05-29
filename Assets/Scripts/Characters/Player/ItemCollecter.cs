@@ -12,8 +12,6 @@ public class ItemCollecter : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Item item))
         {
             GettedItem?.Invoke(item);
-
-            Debug.Log("item selected");
         }
     }
 }

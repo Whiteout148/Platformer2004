@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rotater))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Mover _mover;
@@ -15,12 +14,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Defencer _defencer;
     [SerializeField] private Attacker _attacker;
     [SerializeField] private Stunner _stunner;
+    [SerializeField] private Rotater _rotater;
+    [SerializeField] private Vampire _vampire;
 
     private IDirectionSetter _directionSetter;
 
     private void Awake()
     {
-        _directionSetter = GetComponent<Rotater>();
+        _directionSetter = _rotater;
     }
 
     private void OnEnable()
@@ -31,9 +32,8 @@ public class Player : MonoBehaviour
         _reader.StopPressedMoveKey += _mover.StopMove;
         _reader.PressedJumpButton += _jumper.Jump;
         _reader.PressedAttackButton += _attacker.Attack;
-        _mover.StartedMove += _shower.PlayMove;
-        _mover.EndedMoved += _shower.StopPlayMove;
         _reader.PressedDefenceButton += _defencer.StartDefence;
+        _reader.PressedAbilityButton += _vampire.StartAbsorbing;
         _health.Dead += _mover.StopMove;
 
         _health.Dead += OnDie;
@@ -55,9 +55,7 @@ public class Player : MonoBehaviour
         _reader.PressedJumpButton -= _jumper.Jump;
         _reader.PressedAttackButton -= _attacker.Attack;
         _reader.PressedDefenceButton -= _defencer.StartDefence;
+        _reader.PressedAbilityButton -= _vampire.StartAbsorbing;
         _health.Dead -= _mover.StopMove;
-
-        _mover.StartedMove -= _shower.PlayMove;
-        _mover.EndedMoved -= _shower.StopPlayMove;
     }
 }

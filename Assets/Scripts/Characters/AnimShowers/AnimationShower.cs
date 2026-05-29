@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationShower : MonoBehaviour, IAttackAnimater, IDefenceAnimator
+public class AnimationShower : MonoBehaviour, IAttackAnimater, IDefenceAnimator, IMoveAnimater
 {
     private const int BaseLayer = 0;
     private const int AttackLayer = 1;
